@@ -1,0 +1,32 @@
+{
+  "name": "Scramble Caddie — Spotswood CC GPS & Strategy",
+  "short_name": "Scramble Caddie",
+  "description": "Zero-decision conservative golf strategy, short-and-right slice compensation, OpenStreetMap hole maps, live GPS rangefinder, and scramble scorecard for Spotswood Country Club.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#16462e",
+  "theme_color": "#16462e",
+  "categories": ["sports", "navigation", "utilities"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

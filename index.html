@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#16462e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Scramble Caddie" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <title>Scramble Caddie — Conservative Golf Caddie &amp; GPS Strategy | Spotswood Country Club</title>
+  <meta name="description" content="Zero-decision conservative golf strategy, live GPS rangefinder, OpenStreetMap hole maps, and scramble tournament tracker for Spotswood Country Club in Harrisonburg, VA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <!-- Top Sticky Caddie Header -->
+  <header class="caddie-header" id="mainHeader">
+    <div class="header-top-row">
+      <div class="brand-course-group">
+        <div class="brand-badge">
+          <div class="brand-crest" aria-hidden="true">SC</div>
+          <div class="brand-title-wrap">
+            <h1>Scramble Caddie</h1>
+            <span class="brand-subtitle">Conservative GPS Course Strategy</span>
+          </div>
+        </div>
+
+        <button type="button" class="course-tee-trigger" id="openCourseTeeModalBtn" aria-label="Change Golf Course or Tees">
+          <span class="tee-swatch-dot" id="activeTeeDot" style="background:#d49b27;"></span>
+          <span class="course-trigger-meta">
+            <span id="activeCourseLabel">Spotswood CC · Harrisonburg, VA</span>
+            <span class="course-trigger-divider">|</span>
+            <span class="course-trigger-tee" id="activeTeeLabel">Gold · 4,754 yds</span>
+          </span>
+          <span aria-hidden="true" style="font-size:0.7rem;opacity:0.7;">▼</span>
+        </button>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" class="action-pill-btn" id="requestLiveGpsBtn" title="Request high-accuracy browser GPS location">
+          <span class="gps-pulse-dot" id="gpsDot"></span>
+          <span id="gpsButtonLabel">Locate Me (GPS)</span>
+        </button>
+
+        <button type="button" class="action-pill-btn" id="toggleWakeLockBtn" title="Keep phone screen awake in the golf cart">
+          <span id="wakeLockIcon">📱</span>
+          <span id="wakeLockText">Keep Awake: OFF</span>
+        </button>
+
+        <button type="button" class="action-pill-btn" id="openScrambleModalBtn" title="Open Scramble Team Scorecard & Tee Shot Quota Tracker">
+          <span>🏆 Scramble Card</span>
+          <span class="scramble-score-pill" id="headerTeamScorePill">E (0)</span>
+        </button>
+
+        <button type="button" class="action-pill-btn" id="openShareInstallModalBtn" title="Share link with group or install full-screen phone app">
+          <span>📲 Share / Phone App</span>
+        </button>
+
+        <button type="button" class="action-pill-btn" id="toggleThemeBtn" aria-label="Toggle Daylight or Night Rangefinder Theme">
+          <span id="themeIcon">☀️</span>
+          <span id="themeText">Daylight</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 18-Hole Navigation Ribbon -->
+    <nav class="hole-ribbon-bar" aria-label="Hole selection">
+      <div class="hole-ribbon-inner">
+        <button type="button" class="hole-nav-arrow" id="prevHoleBtn" title="Previous Hole" aria-label="Previous Hole">‹</button>
+        <div class="hole-pills-scroll" id="holeRibbonList" role="tablist"></div>
+        <button type="button" class="hole-nav-arrow" id="nextHoleBtn" title="Next Hole" aria-label="Next Hole">›</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Split Stage: OpenStreetMap Viewport + Zero-Decision Strategy Playbook -->
+  <main class="caddie-workspace" id="mainWorkspace">
+    <!-- Left Column: OpenStreetMap Course & Hole Vector Viewport -->
+    <section class="map-stage-card" aria-label="Interactive OpenStreetMap Hole Map">
+      <div class="map-viewport-container" id="mapViewportContainer">
+        <!-- Floating View & Zoom Controls (Top Left) -->
+        <div class="map-top-left-controls">
+          <div class="map-mode-group" role="group" aria-label="Map camera orientation">
+            <button type="button" class="map-mode-btn active" id="viewModeHoleUpBtn">Hole-Up</button>
+            <button type="button" class="map-mode-btn" id="viewModeNorthUpBtn">North-Up</button>
+            <button type="button" class="map-mode-btn" id="viewModeCourseBtn">18-Hole Map</button>
+          </div>
+          <div class="map-zoom-compass-row">
+            <button type="button" class="map-icon-btn" id="zoomInMapBtn" title="Zoom In" aria-label="Zoom In">+</button>
+            <button type="button" class="map-icon-btn" id="zoomOutMapBtn" title="Zoom Out" aria-label="Zoom Out">−</button>
+            <button type="button" class="map-icon-btn" id="resetMapCamBtn" title="Re-center Hole" aria-label="Reset Map View">⌖</button>
+            <div class="compass-indicator" id="compassBadge" title="True North Orientation">
+              <span id="compassArrow" style="display:inline-block;transition:transform 0.35s ease;">↑</span>
+              <span>N</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Sunlight-Legible Rangefinder HUD (Top Right) -->
+        <aside class="rangefinder-hud" aria-label="Live Yardages from Current Position">
+          <div class="hud-target-block">
+            <span class="hud-eyebrow" id="hudTargetEyebrow">TO SAFE TARGET</span>
+            <div>
+              <span class="hud-primary-yds" id="hudToTargetYds">185</span>
+              <span class="hud-primary-unit">YDS</span>
+            </div>
+          </div>
+          <div class="hud-fcb-grid" title="Yardage from your position to Front, Center, and Back of Green">
+            <div class="hud-fcb-item">
+              <span class="hud-fcb-label">FRONT</span>
+              <span class="hud-fcb-val" id="hudFrontYds">334</span>
+            </div>
+            <div class="hud-fcb-item">
+              <span class="hud-fcb-label">CENTER</span>
+              <span class="hud-fcb-val" id="hudCenterYds">349</span>
+            </div>
+            <div class="hud-fcb-item">
+              <span class="hud-fcb-label">BACK</span>
+              <span class="hud-fcb-val" id="hudBackYds">365</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Interactive SVG OpenStreetMap Renderer -->
+        <svg id="osmCourseSvg" viewBox="0 0 800 620" preserveAspectRatio="xMidYMid slice" role="img" aria-label="OpenStreetMap golf hole layout with conservative aim targets and hazards"></svg>
+
+        <!-- Bottom Legend & OSM Source Verification -->
+        <div class="map-legend-pill">
+          <div class="legend-items">
+            <span class="legend-item"><span class="legend-swatch" style="background:#f5b82e;border:2px solid #fff;"></span>Safe Target Zone</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:#e03124;border:2px solid #fff;"></span>Avoid / No-Go</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:#2563eb;border:2px solid #fff;"></span>Your GPS Ball</span>
+          </div>
+          <span class="osm-attribution-badge">Map data © OpenStreetMap (Way #82747978)</span>
+        </div>
+      </div>
+
+      <!-- Interactive GPS Simulator & Position Bar -->
+      <div class="gps-simulator-bar">
+        <div class="gps-sim-label">
+          <span>📍</span>
+          <span id="gpsStatusReadout">Simulator Active: Tap map to move ball or pick spot:</span>
+        </div>
+        <div class="gps-preset-btns" id="gpsPresetBtnsGroup">
+          <button type="button" class="gps-preset-btn active" data-sim-spot="tee" id="simSpotTeeBtn">At Tee</button>
+          <button type="button" class="gps-preset-btn" data-sim-spot="shot1" id="simSpotShot1Btn">At Drive Landing</button>
+          <button type="button" class="gps-preset-btn" data-sim-spot="shot2" id="simSpotShot2Btn">At Layup / Approach</button>
+          <button type="button" class="gps-preset-btn" data-sim-spot="green" id="simSpotGreenBtn">Greenside</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Zero-Decision Conservative Caddie Playbook -->
+    <section class="playbook-column" aria-label="Hole Strategy Playbook">
+      <!-- 1. Hole Identity & Overview Card -->
+      <article class="hole-identity-card">
+        <div class="hole-header-top">
+          <div>
+            <div class="hole-title-group">
+              <span class="hole-big-badge" id="holeNumberTitle">Hole 1</span>
+              <h2 class="hole-nickname" id="holeNicknameTitle">“Shenandoah Opener”</h2>
+            </div>
+            <p class="hole-headline-tag" id="holeHeadlineTag">Uphill Slight Dogleg Right · Blind Second Shot</p>
+          </div>
+          <div class="hole-stat-pills">
+            <div class="stat-box">
+              <span class="stat-box-label">PAR</span>
+              <span class="stat-box-val" id="holeParVal">5</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label" id="holeTeeNameMini">GOLD</span>
+              <span class="stat-box-val" id="holeYardageVal">349y</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">HDCP</span>
+              <span class="stat-box-val" id="holeHandicapVal">7</span>
+            </div>
+          </div>
+        </div>
+        <p class="hole-overview-text" id="holeOverviewText"></p>
+      </article>
+
+      <!-- 2. Scramble "Teammate Safe in Play?" Toggle Banner -->
+      <div class="scramble-mode-banner" id="scrambleBannerBox">
+        <div class="scramble-banner-info">
+          <div class="scramble-banner-title">
+            <span id="safeBallStatusIcon">🛡️</span>
+            <span id="safeBallStatusTitle">Conservative Fairway-Finder Mode</span>
+          </div>
+          <span class="scramble-banner-desc" id="safeBallStatusDesc">Default safest play. Toggle ON once a teammate has a safe ball in play.</span>
+        </div>
+        <button type="button" class="safe-ball-switch" id="toggleSafeBallBtn" aria-pressed="false">
+          <span id="safeBallBtnText">Teammate Safe: OFF</span>
+        </button>
+      </div>
+
+      <!-- 3. Step-by-Step Shot Stepper & Zero-Decision Directive Card -->
+      <article class="shot-stepper-card" aria-live="polite">
+        <div class="shot-tabs-header" id="shotTabsHeader" role="tablist"></div>
+
+        <div class="shot-directive-body">
+          <div class="target-zone-header">
+            <span class="target-pill-badge" id="activeShotTargetBadge">🎯 Target: Center Fairway</span>
+            <span class="shot-Carry-readout" id="activeShotDistanceReadout">Shot Distance: 185 yds</span>
+          </div>
+
+          <div class="command-hero-box">
+            <span class="command-eyebrow" id="commandModeEyebrow">THE CONSERVATIVE PLAY — ZERO DECISIONS</span>
+            <p class="command-main-text" id="activeShotCommandText"></p>
+          </div>
+
+          <div class="club-guidance-box">
+            <div class="club-guidance-left">
+              <div class="club-icon-badge" id="activeClubBadgeIcon">CLB</div>
+              <div>
+                <span class="club-label-small">WHAT CLUB TO HIT (SHORT-MISS COMPENSATED)</span>
+                <p class="club-recommendation-text" id="activeShotClubText"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="short-right-fix-box" id="shortRightFixBox">
+            <span class="short-right-badge">↗ SHORT &amp; RIGHT FIX</span>
+            <p class="short-right-text" id="activeShotShortRightText"></p>
+          </div>
+
+          <div class="avoid-alert-box" role="alert">
+            <span class="avoid-badge-icon">AVOID</span>
+            <p class="avoid-text" id="activeShotAvoidText"></p>
+          </div>
+
+          <div class="local-why-box">
+            <span class="local-why-label">Local Caddie Note:</span>
+            <span id="activeShotWhyText"></span>
+          </div>
+
+          <div class="review-intel-box" id="reviewIntelBox">
+            <div class="review-intel-header">
+              <span>💬 Online Course Review &amp; Pro Intel</span>
+              <span class="review-source-tag" id="holeReviewSourceTag">Virginia Golf Guy &amp; Spotswood Pro</span>
+            </div>
+            <blockquote class="review-quote-text" id="holeReviewQuoteText"></blockquote>
+          </div>
+        </div>
+
+        <div class="shot-stepper-footer">
+          <button type="button" class="step-nav-btn" id="prevShotStepBtn">← Previous Shot</button>
+          <span id="shotStepIndicatorText" style="font-family:var(--font-mono);font-size:0.78rem;font-weight:700;color:var(--text-muted);">Shot 1 of 3</span>
+          <button type="button" class="step-nav-btn primary" id="nextShotStepBtn">Next Shot →</button>
+        </div>
+      </article>
+
+      <!-- 4. Quick Scramble Hole Score & Tee-Shot Logger -->
+      <section class="quick-scramble-card" aria-label="Quick Scramble Hole Tracker">
+        <div class="quick-scramble-header">
+          <span>📝 Scramble Quick-Log · <span id="quickLogHoleLabel">Hole 1</span></span>
+          <span id="quickLogGreenNote" style="color:var(--brand-brass);font-size:0.75rem;"></span>
+        </div>
+        <div class="quick-log-grid">
+          <div class="quick-log-group">
+            <span class="quick-log-label">Team Hole Score</span>
+            <div class="score-btn-row" id="quickScoreBtnRow"></div>
+          </div>
+          <div class="quick-log-group">
+            <span class="quick-log-label">Whose Tee Shot Was Used?</span>
+            <div class="driver-btn-row" id="quickDriverBtnRow"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Modal 1: Course & Tee Box Setup -->
+  <div class="modal-backdrop" id="courseTeeModal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="courseModalTitle">Select Course & Tees</h2>
+          <p style="font-size:0.84rem;color:var(--text-muted);">Tailored conservative strategy & OpenStreetMap GPS geometry</p>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeCourseTeeModalBtn" aria-label="Close modal">✕</button>
+      </div>
+
+      <div>
+        <label for="courseSearchSelect" style="font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);display:block;margin-bottom:0.4rem;">Active Golf Course</label>
+        <select id="courseSearchSelect" style="width:100%;padding:0.7rem 0.9rem;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--bg-surface-subtle);font-weight:700;font-size:0.92rem;">
+          <option value="spotswood-cc">Spotswood Country Club — Harrisonburg, VA (18 Holes · Par 72 · OSM Verified)</option>
+        </select>
+        <p style="font-size:0.76rem;color:var(--text-muted);margin-top:0.35rem;">📍 1980 Country Club Rd, Harrisonburg, VA · Architects: Fred Findlay & Edmund Ault · OpenStreetMap Way #82747978</p>
+      </div>
+
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
+          <span style="font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Choose Your Tees (Updates All Yardages & Map Markers)</span>
+        </div>
+        <div class="tee-grid" id="teeOptionsGrid"></div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;padding-top:0.5rem;border-top:1px solid var(--border-subtle);">
+        <button type="button" class="step-nav-btn primary" id="confirmTeeSelectionBtn">Apply Course & Tees</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Scramble Tournament Scorecard & Tee-Shot Quota Tracker -->
+  <div class="modal-backdrop" id="scrambleModal" role="dialog" aria-modal="true" aria-labelledby="scrambleModalTitle">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="scrambleModalTitle">Scramble Tournament Tracker</h2>
+          <p style="font-size:0.84rem;color:var(--text-muted);">Track team score vs. par and required tee shots per player (3 drives min.)</p>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeScrambleModalBtn" aria-label="Close modal">✕</button>
+      </div>
+
+      <div>
+        <span style="font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);display:block;margin-bottom:0.5rem;">Teammate Drive Quotas (Click Name to Edit)</span>
+        <div class="quota-grid" id="scrambleQuotaGrid"></div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.8rem;font-family:var(--font-mono);" id="scrambleFullTable"></table>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.5rem;border-top:1px solid var(--border-subtle);">
+        <button type="button" class="step-nav-btn" id="resetScrambleCardBtn" style="color:var(--danger-crimson);">Reset Scorecard</button>
+        <button type="button" class="step-nav-btn primary" id="doneScrambleModalBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Share & Install Phone App (PWA + QR Code + Offline Status) -->
+  <div class="modal-backdrop" id="shareInstallModal" role="dialog" aria-modal="true" aria-labelledby="shareInstallModalTitle">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="shareInstallModalTitle">Share &amp; Install Phone App</h2>
+          <p style="font-size:0.84rem;color:var(--text-muted);">Send to your scramble group or install as a full-screen offline phone app</p>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeShareInstallModalBtn" aria-label="Close modal">✕</button>
+      </div>
+
+      <!-- Offline Cache Status Banner -->
+      <div class="pwa-status-banner" id="pwaOfflineStatusBanner">
+        <span style="font-size:1.2rem;">✅</span>
+        <div>
+          <strong style="font-size:0.85rem;display:block;" id="pwaOfflineTitle">Offline Course Cache Ready</strong>
+          <span style="font-size:0.76rem;color:var(--text-secondary);" id="pwaOfflineDesc">All 18 holes of Spotswood CC OpenStreetMap geometry &amp; strategy are saved on this device for dead cell zones.</span>
+        </div>
+      </div>
+
+      <!-- Native Install Button (shown automatically when browser supports beforeinstallprompt) -->
+      <div id="nativeInstallPromptWrap" style="display:none;">
+        <button type="button" class="step-nav-btn primary" id="triggerNativeInstallBtn" style="width:100%;padding:0.8rem;font-size:0.95rem;">
+          📲 Install Scramble Caddie App Now
+        </button>
+      </div>
+
+      <!-- Share Link & QR Code Grid -->
+      <div class="share-qr-grid">
+        <div class="qr-card-box">
+          <span style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">Scan on 1st Tee with Phone Camera</span>
+          <div id="shareQrCanvasWrap" class="qr-svg-wrap" aria-label="QR Code for current app URL"></div>
+          <span style="font-size:0.72rem;color:var(--text-muted);text-align:center;" id="shareUrlShortDisplay"></span>
+        </div>
+
+        <div class="install-steps-col">
+          <div class="install-platform-card">
+            <strong>🍎 iPhone / iPad (Safari)</strong>
+            <ol>
+              <li>Open your Netlify link in <strong>Safari</strong>.</li>
+              <li>Tap the <strong>Share</strong> icon <span style="font-family:var(--font-mono);">[↑]</span> at the bottom of the screen.</li>
+              <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+              <li>Launch <strong>Scramble Caddie</strong> from your Home Screen for full-screen GPS &amp; offline mode!</li>
+            </ol>
+          </div>
+
+          <div class="install-platform-card">
+            <strong>🤖 Android (Chrome)</strong>
+            <ol>
+              <li>Open your Netlify link in <strong>Chrome</strong>.</li>
+              <li>Tap the <strong>⋮ Menu</strong> (top right) and tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.</li>
+            </ol>
+          </div>
+
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.2rem;">
+            <button type="button" class="step-nav-btn primary" id="nativeShareBtn" style="flex:1;">📤 Share Link to Group</button>
+            <button type="button" class="step-nav-btn" id="copyAppUrlBtn" style="flex:1;">📋 Copy Link</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;padding-top:0.5rem;border-top:1px solid var(--border-subtle);">
+        <button type="button" class="step-nav-btn primary" id="doneShareInstallModalBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="courseData.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

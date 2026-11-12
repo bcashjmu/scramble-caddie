@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="pineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b4d34" />
+      <stop offset="100%" stop-color="#0d261a" />
+    </linearGradient>
+    <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5b82e" />
+      <stop offset="100%" stop-color="#b87e14" />
+    </linearGradient>
+  </defs>
+  <!-- Background Rounded Tile -->
+  <rect width="512" height="512" rx="112" fill="url(#pineGrad)" />
+  <rect x="22" y="22" width="468" height="468" rx="94" fill="none" stroke="url(#brassGrad)" stroke-width="6" opacity="0.55" />
+
+  <!-- Subtle Fairway & Target Rings -->
+  <circle cx="256" cy="310" r="135" fill="none" stroke="#2d7a53" stroke-width="4" stroke-dasharray="14,10" opacity="0.55" />
+  <circle cx="256" cy="310" r="78" fill="rgba(245, 184, 46, 0.12)" stroke="#f5b82e" stroke-width="5" />
+
+  <!-- Golf Green Surface -->
+  <ellipse cx="256" cy="336" rx="110" ry="44" fill="#288054" stroke="#f5b82e" stroke-width="5" />
+  <!-- Cup -->
+  <ellipse cx="256" cy="340" rx="18" ry="8" fill="#091911" />
+
+  <!-- Flagstick & Pennant -->
+  <line x1="256" y1="340" x2="256" y2="116" stroke="#ffffff" stroke-width="12" stroke-linecap="round" />
+  <polygon points="260,118 378,158 260,198" fill="#e03124" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" />
+
+  <!-- SC Monogram Badge -->
+  <rect x="136" y="388" width="240" height="68" rx="34" fill="#102c1f" stroke="url(#brassGrad)" stroke-width="5" />
+  <text x="256" y="434" text-anchor="middle" fill="#f7f4eb" font-family="system-ui, -apple-system, sans-serif" font-size="38" font-weight="900" letter-spacing="4">CADDIE</text>
+</svg>

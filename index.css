@@ -1,0 +1,1554 @@
+/* ==========================================================================
+   SCRAMBLE CADDIE — Conservative Scramble & Novice Golf Caddie
+   Design System: Daylight Country Club Yardage Book + Night Rangefinder HUD
+   ========================================================================== */
+
+:root {
+  /* Daylight Caddie Theme (Default — High-Contrast Outdoor Legibility) */
+  --bg-page: hsl(42, 35%, 95%);
+  --bg-page- radial: hsl(40, 32%, 92%);
+  --bg-surface: hsl(40, 45%, 99%);
+  --bg-surface-elevated: hsl(0, 0%, 100%);
+  --bg-surface-subtle: hsl(40, 26%, 93%);
+  --bg-surface-glass: hsla(40, 45%, 99%, 0.92);
+
+  --text-primary: hsl(154, 42%, 11%);
+  --text-secondary: hsl(152, 20%, 28%);
+  --text-muted: hsl(150, 12%, 44%);
+  --text-on-primary: hsl(42, 45%, 98%);
+
+  --brand-pine: hsl(153, 54%, 18%);
+  --brand-pine-hover: hsl(153, 56%, 14%);
+  --brand-fairway: hsl(146, 52%, 30%);
+  --brand-fairway-soft: hsla(146, 52%, 30%, 0.12);
+  --brand-brass: hsl(38, 74%, 38%);
+  --brand-brass-soft: hsla(38, 78%, 44%, 0.15);
+  --brand-brass-border: hsla(38, 70%, 40%, 0.38);
+
+  --danger-crimson: hsl(6, 78%, 44%);
+  --danger-bg: hsla(6, 82%, 50%, 0.1);
+  --danger-border: hsla(6, 78%, 44%, 0.35);
+
+  --safe-emerald: hsl(148, 64%, 28%);
+  --safe-bg: hsla(148, 64%, 32%, 0.12);
+  --safe-border: hsla(148, 64%, 28%, 0.35);
+
+  --border-subtle: hsl(38, 22%, 85%);
+  --border-strong: hsl(38, 20%, 74%);
+  --shadow-sm: 0 2px 6px -1px hsla(154, 40%, 12%, 0.06), 0 1px 2px -1px hsla(154, 40%, 12%, 0.04);
+  --shadow-md: 0 10px 24px -6px hsla(154, 40%, 12%, 0.1), 0 4px 10px -3px hsla(154, 40%, 12%, 0.05);
+  --shadow-lg: 0 20px 40px -12px hsla(154, 42%, 10%, 0.16);
+
+  /* Map Canvas Palette — Daylight Yardage Book */
+  --map-sky: #e4eadf;
+  --map-course-rough: #c9d9be;
+  --map-trees: #a8c19b;
+  --map-fairway: #5aa469;
+  --map-fairway-stripe: #64ae73;
+  --map-fairway-outline: #3f844e;
+  --map-green: #29c26a;
+  --map-green-outline: #178a47;
+  --map-bunker: #f3e4be;
+  --map-bunker-lip: #c9b079;
+  --map-water: #4a90c2;
+  --map-water-Edge: #2c6b99;
+  --map-cartpath: rgba(120, 114, 102, 0.45);
+  --map-road: #d5cfc3;
+  --map-road-stroke: #b5ad9e;
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+/* Night / Sunlight Glare Rangefinder Theme */
+[data-theme="dark"] {
+  --bg-page: hsl(156, 30%, 7%);
+  --bg-page-radial: hsl(156, 28%, 10%);
+  --bg-surface: hsl(155, 25%, 11%);
+  --bg-surface-elevated: hsl(155, 24%, 15%);
+  --bg-surface-subtle: hsl(155, 22%, 14%);
+  --bg-surface-glass: hsla(155, 26%, 11%, 0.92);
+
+  --text-primary: hsl(42, 30%, 96%);
+  --text-secondary: hsl(150, 16%, 78%);
+  --text-muted: hsl(150, 12%, 58%);
+  --text-on-primary: hsl(156, 35%, 8%);
+
+  --brand-pine: hsl(146, 58%, 48%);
+  --brand-pine-hover: hsl(146, 62%, 55%);
+  --brand-fairway: hsl(146, 60%, 45%);
+  --brand-fairway-soft: hsla(146, 60%, 45%, 0.16);
+  --brand-brass: hsl(42, 86%, 60%);
+  --brand-brass-soft: hsla(42, 86%, 60%, 0.16);
+  --brand-brass-border: hsla(42, 86%, 60%, 0.4);
+
+  --danger-crimson: hsl(8, 88%, 64%);
+  --danger-bg: hsla(8, 86%, 56%, 0.16);
+  --danger-border: hsla(8, 86%, 60%, 0.45);
+
+  --safe-emerald: hsl(146, 68%, 52%);
+  --safe-bg: hsla(146, 68%, 45%, 0.16);
+  --safe-border: hsla(146, 68%, 50%, 0.45);
+
+  --border-subtle: hsl(155, 18%, 20%);
+  --border-strong: hsl(155, 18%, 28%);
+  --shadow-sm: 0 2px 8px hsla(0, 0%, 0%, 0.35);
+  --shadow-md: 0 12px 28px -6px hsla(0, 0%, 0%, 0.5);
+  --shadow-lg: 0 24px 48px -12px hsla(0, 0%, 0%, 0.65);
+
+  /* Map Canvas Palette — Dark Rangefinder */
+  --map-sky: #0b1611;
+  --map-course-rough: #13281e;
+  --map-trees: #0e1f17;
+  --map-fairway: #1f5c3a;
+  --map-fairway-stripe: #246842;
+  --map-fairway-outline: #328556;
+  --map-green: #28b868;
+  --map-green-outline: #5ae395;
+  --map-bunker: #d8c394;
+  --map-bunker-lip: #9e844e;
+  --map-water: #1f5e8c;
+  --map-water-Edge: #3b8bc4;
+  --map-cartpath: rgba(180, 195, 185, 0.25);
+  --map-road: #1f2924;
+  --map-road-stroke: #34443c;
+}
+
+/* Base Reset & Subtle Paper Grain */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  background-image: radial-gradient(circle at 15% 10%, var(--bg-page-radial), transparent 60%);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+button, input, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ==========================================================================
+   1. Top Navigation & Caddie Control Header
+   ========================================================================== */
+.caddie-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg-surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-top-row {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0.65rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.brand-course-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.brand-crest {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.brand-title-wrap h1 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.brand-subtitle {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Course & Tee Selector Pill */
+.course-tee-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.course-tee-trigger:hover {
+  border-color: var(--brand-pine);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.tee-swatch-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+
+.course-trigger-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.course-trigger-divider {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.course-trigger-tee {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--brand-brass);
+  font-weight: 700;
+}
+
+/* Header Right Action Controls */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.action-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.action-pill-btn:hover {
+  background: var(--bg-surface-subtle);
+  border-color: var(--border-strong);
+}
+
+.action-pill-btn.active-gps {
+  background: var(--safe-bg);
+  border-color: var(--safe-border);
+  color: var(--safe-emerald);
+}
+
+.gps-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-brass);
+  box-shadow: 0 0 0 3px var(--brand-brass-soft);
+}
+
+.action-pill-btn.active-gps .gps-pulse-dot {
+  background: var(--safe-emerald);
+  animation: pulseRing 1.8s infinite;
+}
+
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 hsla(148, 64%, 38%, 0.55); }
+  70% { box-shadow: 0 0 0 7px hsla(148, 64%, 38%, 0); }
+  100% { box-shadow: 0 0 0 0 hsla(148, 64%, 38%, 0); }
+}
+
+.scramble-score-pill {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  padding: 0.12rem 0.42rem;
+  border-radius: 6px;
+  background: var(--brand-brass-soft);
+  color: var(--brand-brass);
+  font-size: 0.76rem;
+}
+
+/* Hole 1-18 Ribbon Strip */
+.hole-ribbon-bar {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  padding: 0.38rem 1.25rem;
+}
+
+.hole-ribbon-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hole-nav-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-subtle);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.hole-nav-arrow:hover {
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+  border-color: var(--brand-pine);
+}
+
+.hole-pills-scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  padding: 2px 0;
+}
+
+.hole-pills-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hole-pill {
+  min-width: 42px;
+  height: 34px;
+  padding: 0 0.35rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hole-pill:hover {
+  background: var(--bg-surface-subtle);
+  border-color: var(--border-subtle);
+}
+
+.hole-pill.active {
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+  border-color: var(--brand-pine);
+  box-shadow: var(--shadow-sm);
+}
+
+.hole-pill-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.hole-pill-par {
+  font-size: 0.62rem;
+  opacity: 0.72;
+  line-height: 1;
+}
+
+.hole-pill-score-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-brass);
+}
+
+/* ==========================================================================
+   2. Main Workspace Grid (Map Left + Strategy Playbook Right)
+   ========================================================================== */
+.caddie-workspace {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2rem;
+  display: grid;
+  grid-template-columns: minmax(380px, 1.08fr) minmax(380px, 0.92fr);
+  gap: 1.25rem;
+  align-items: start;
+  flex: 1;
+}
+
+@media (max-width: 1024px) {
+  .caddie-workspace {
+    grid-template-columns: 1fr;
+    padding: 0.75rem 0.85rem 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   3. Left Column: Interactive OpenStreetMap Caddie Viewport
+   ========================================================================== */
+.map-stage-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 106px;
+}
+
+@media (max-width: 1024px) {
+  .map-stage-card {
+    position: relative;
+    top: 0;
+  }
+}
+
+.map-viewport-container {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  background: var(--map-sky);
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+@media (max-width: 640px) {
+  .map-viewport-container {
+    height: 430px;
+  }
+}
+
+#osmCourseSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+/* Map Floating Overlays */
+.map-top-left-controls {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  z-index: 10;
+}
+
+.map-mode-group {
+  display: inline-flex;
+  background: var(--bg-surface-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.map-mode-btn {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.map-mode-btn.active {
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+}
+
+.map-zoom-compass-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.map-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-glass);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+}
+
+.map-icon-btn:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--brand-pine);
+}
+
+.compass-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.55rem;
+  border-radius: 8px;
+  background: var(--bg-surface-glass);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Floating Sunlight-Legible Yardage Rangefinder HUD (Top Right) */
+.rangefinder-hud {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  background: var(--bg-surface-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.85rem;
+  min-width: 162px;
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.hud-target-block {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.45rem;
+}
+
+.hud-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-brass);
+  display: block;
+}
+
+.hud-primary-yds {
+  font-family: var(--font-mono);
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-primary-unit {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-left: 0.15rem;
+}
+
+.hud-fcb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.hud-fcb-item {
+  background: var(--bg-surface-subtle);
+  border-radius: 6px;
+  padding: 0.22rem 0.25rem;
+}
+
+.hud-fcb-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: block;
+}
+
+.hud-fcb-val {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Map Legend Overlay (Bottom Left) */
+.map-legend-pill {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.85rem;
+  right: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.73rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.legend-items {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.osm-attribution-badge {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* Interactive GPS Simulator & Position Bar (Below Map Canvas) */
+.gps-simulator-bar {
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface-subtle);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.gps-sim-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.gps-preset-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.gps-preset-btn {
+  padding: 0.32rem 0.62rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.gps-preset-btn:hover,
+.gps-preset-btn.active {
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+  border-color: var(--brand-pine);
+}
+
+/* ==========================================================================
+   4. Right Column: Zero-Decision Conservative Caddie Playbook
+   ========================================================================== */
+.playbook-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Hole Identity Card */
+.hole-identity-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.hole-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.hole-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.hole-big-badge {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--brand-pine);
+  line-height: 1;
+}
+
+.hole-nickname {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hole-headline-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--brand-brass);
+  margin-top: 0.18rem;
+}
+
+.hole-stat-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.stat-box {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.32rem 0.65rem;
+  text-align: center;
+}
+
+.stat-box-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  font-weight: 700;
+  display: block;
+}
+
+.stat-box-val {
+  font-family: var(--font-mono);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.hole-overview-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Scramble Mode Toggle Card ("Teammate Safe in Play?") */
+.scramble-mode-banner {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.scramble-mode-banner.safe-ball-active {
+  background: var(--safe-bg);
+  border-color: var(--safe-border);
+}
+
+.scramble-banner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.scramble-banner-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.scramble-banner-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.safe-ball-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface-subtle);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.safe-ball-switch.active {
+  background: var(--safe-emerald);
+  color: #ffffff;
+  border-color: var(--safe-emerald);
+}
+
+/* Step-by-Step Shot Stepper Card */
+.shot-stepper-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.shot-tabs-header {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  background: var(--bg-surface-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.38rem;
+  gap: 0.35rem;
+}
+
+.shot-tab-btn {
+  padding: 0.6rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.16s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.shot-tab-btn:hover {
+  background: var(--bg-surface);
+}
+
+.shot-tab-btn.active {
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.shot-tab-step {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.shot-tab-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+/* Active Shot Directive Body */
+.shot-directive-body {
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.target-zone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.target-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  background: var(--brand-brass-soft);
+  border: 1px solid var(--brand-brass-border);
+  color: var(--brand-brass);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.shot-Carry-readout {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+/* Primary No-Decision Command Box */
+.command-hero-box {
+  background: var(--bg-surface-subtle);
+  border-left: 4px solid var(--brand-pine);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1rem 1.15rem;
+}
+
+.command-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--brand-fairway);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.command-main-text {
+  font-family: var(--font-display);
+  font-size: 1.24rem;
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--text-primary);
+}
+
+/* Club Recommendation & Golfer Bag Profile Row */
+.club-guidance-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.club-guidance-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.club-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--brand-fairway-soft);
+  color: var(--brand-fairway);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.club-label-small {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  display: block;
+}
+
+.club-recommendation-text {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Short & Right High-Handicap Compensation Box */
+.short-right-fix-box {
+  background: var(--brand-brass-soft);
+  border: 1px solid var(--brand-brass-border);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.short-right-badge {
+  background: var(--brand-brass);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 0.22rem 0.5rem;
+  border-radius: 5px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  margin-top: 0.08rem;
+  white-space: nowrap;
+}
+
+.short-right-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+/* Red "AVOID / NO-GO" Callout Box */
+.avoid-alert-box {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.avoid-badge-icon {
+  background: var(--danger-crimson);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.2rem 0.45rem;
+  border-radius: 5px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.avoid-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--danger-crimson);
+  line-height: 1.42;
+}
+
+/* Local Course Knowledge Note */
+.local-why-box {
+  padding: 0.75rem 0.95rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-subtle);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  line-height: 1.45;
+}
+
+.local-why-label {
+  font-weight: 700;
+  color: var(--brand-brass);
+  flex-shrink: 0;
+}
+
+/* Online Forum / Blog / Pro Review Quote Box */
+.review-intel-box {
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px dashed var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+}
+
+.review-intel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-fairway);
+}
+
+.review-source-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.review-quote-text {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.48;
+}
+
+/* Shot Stepper Footer Controls */
+.shot-stepper-footer {
+  padding: 0.85rem 1.35rem;
+  background: var(--bg-surface-subtle);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.step-nav-btn {
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.step-nav-btn:hover:not(:disabled) {
+  border-color: var(--brand-pine);
+}
+
+.step-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.step-nav-btn.primary {
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+  border-color: var(--brand-pine);
+}
+
+.step-nav-btn.primary:hover {
+  background: var(--brand-pine-hover);
+}
+
+/* Quick Scramble Hole Log Card */
+.quick-scramble-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quick-scramble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.quick-log-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 560px) {
+  .quick-log-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quick-log-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.quick-log-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.score-btn-row,
+.driver-btn-row {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.mini-choice-btn {
+  flex: 1;
+  padding: 0.42rem 0.35rem;
+  border-radius: 7px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-subtle);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  text-align: center;
+}
+
+.mini-choice-btn:hover {
+  border-color: var(--border-strong);
+}
+
+.mini-choice-btn.selected {
+  background: var(--brand-pine);
+  color: var(--text-on-primary);
+  border-color: var(--brand-pine);
+}
+
+/* ==========================================================================
+   5. Modals (Course & Tee Selector + Scramble Scorecard Tracker)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10, 22, 16, 0.62);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-sheet {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 680px;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.85rem;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.modal-close-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-subtle);
+  cursor: pointer;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.tee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: 0.75rem;
+}
+
+.tee-option-card {
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.16s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.tee-option-card:hover {
+  border-color: var(--border-strong);
+}
+
+.tee-option-card.selected {
+  border-color: var(--brand-pine);
+  background: var(--brand-fairway-soft);
+}
+
+.tee-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.tee-card-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.tee-card-yds {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.tee-card-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--brand-brass);
+}
+
+.tee-card-rec {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* ScrambleQuota Grid */
+.quota-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 0.65rem;
+}
+
+.quota-player-card {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.quota-player-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--border-strong);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding-bottom: 2px;
+  width: 100%;
+}
+
+.quota-bar-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-subtle);
+  overflow: hidden;
+}
+
+.quota-bar-fill {
+  height: 100%;
+  background: var(--brand-fairway);
+  transition: width 0.25s ease;
+}
+
+/* ==========================================================================
+   6. Mobile PWA Share, QR Code & WakeLock Styles
+   ========================================================================== */
+.action-pill-btn.active-wakelock {
+  background: rgba(34, 197, 94, 0.24);
+  border-color: #4ade80;
+  color: #ffffff;
+}
+
+.pwa-status-banner {
+  background: var(--safe-bg);
+  border: 1px solid var(--safe-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.share-qr-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 600px) {
+  .share-qr-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.qr-card-box {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  text-align: center;
+}
+
+.qr-svg-wrap {
+  width: 156px;
+  height: 156px;
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  display: grid;
+  place-items: center;
+}
+
+.install-steps-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.install-platform-card {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.install-platform-card strong {
+  color: var(--text-primary);
+}
+
+.install-platform-card ol {
+  margin: 0.35rem 0 0 1.15rem;
+  padding: 0;
+  color: var(--text-secondary);
+}
+
+.install-platform-card li + li {
+  margin-top: 0.2rem;
+}
+

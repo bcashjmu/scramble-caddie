@@ -1,0 +1,23 @@
+# Netlify Configuration for Scramble Caddie PWA
+[build]
+  publish = "."
+  command = "echo 'Static PWA ready for deployment'"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Content-Type = "application/manifest+json; charset=UTF-8"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=UTF-8"
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self)"
